@@ -2,16 +2,32 @@ version: '2'
 
 services:
 
-  tmi_access_token:
-    container_name: tmi_access_token
-    env_file: .env
-    build:
-      context: .
+  access_token:
+    container_name: access_token
+    env_file: keycloak.env
+    image: jboss/keycloak
     ports:
-      - '10080:80'
-      - '10443:443'
+      - '11080:8080'
+      - '11443:443'
+    depends_on:
+      - "access_token_data"
+
+  access_token_data:
+    container_name: access_token_data
+    env_file: mariadb.env
+    image: mariadb
     volumes:
-      - ./local/config:/local/config
-      - ./local/private:/local/private
-      - ./local/data:/local/data
-      - ./local/log:/local/log
+      - access_token_data:/var/lib/mysql
+
+  access_token_ldap:
+    container_name: access_token_ldap
+    # env_file: openldap.env
+    image: osixia/openldap
+    ports:
+      - '11389:389'
+      - '11636:636'
+    # volumes:
+    #   - access_token_data:/var/lib/mysql
+
+volumes:
+  access_token_data:
