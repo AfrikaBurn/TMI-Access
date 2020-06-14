@@ -18,6 +18,8 @@ services:
     image: mariadb
     volumes:
       - access_token_data:/var/lib/mysql
+    depends_on:
+      - "access_token_ldap"
 
   access_token_ldap:
     container_name: access_token_ldap
@@ -26,8 +28,6 @@ services:
     ports:
       - '11389:389'
       - '11636:636'
-    # volumes:
-    #   - access_token_data:/var/lib/mysql
 
 volumes:
   access_token_data:
