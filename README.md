@@ -4,7 +4,7 @@
 
 ## Services
 
-* [OpenLDAP](openldap.org) - main user, directory and group store.
+* [OpenLDAP](openldap.org) - main user directory and group store.
 * [Keycloak](https://www.keycloak.org/) - authentication adapter.
 
 
