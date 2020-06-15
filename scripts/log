@@ -1,1 +1,1 @@
-sudo docker logs -f tmi_access_token
+docker logs -f tmi_access_token

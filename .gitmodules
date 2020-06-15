@@ -1,0 +1,3 @@
+[submodule "build/openldap"]
+	path = build/openldap
+	url = https://github.com/AfrikaBurn/TMI-OpenLDAP-Token.git

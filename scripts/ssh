@@ -1,2 +1,2 @@
 clear
-sudo docker exec -it tmi_access_token /bin/bash
+docker exec -it tmi_access_token /bin/bash
