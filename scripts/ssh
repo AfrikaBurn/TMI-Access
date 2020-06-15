@@ -1,2 +1,5 @@
-clear
-docker exec -it tmi_access_token /bin/bash
+if [ -z $1 ]; then
+    echo 'Usage: ssh [keycloak | ldap]';
+else
+    clear && docker exec -it $1 /bin/bash;
+fi

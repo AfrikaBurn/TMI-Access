@@ -1,2 +1,1 @@
-clear
-docker-compose build
+clear && docker-compose build
