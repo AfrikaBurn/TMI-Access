@@ -2,6 +2,7 @@
 
 > Represent, authenticate and collect participants.
 
+
 ## Services
 
 * [OpenLDAP](openldap.org) - main user directory and group store.
@@ -15,7 +16,7 @@
 
 ## Installation
 
-* Checkout this repository including the openLDAP submodule:
+* Clone this repository including the openLDAP submodule:
 ```bash
 git clone --recurse-submodules https://github.com/AfrikaBurn/TMI-Access-Token.git
 ```
@@ -24,12 +25,12 @@ git clone --recurse-submodules https://github.com/AfrikaBurn/TMI-Access-Token.gi
 cd TMI-Access-Token
 cp default.env .env
 ```
-* Change the password in .env to something more secure.
+* Change the make passwords in .env more secure .
 
 
 ### Optional:
 
-* Docker volumes:
+* Docker Volumes:
     * ldap_config
     * ldap_data
 
