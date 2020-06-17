@@ -5,18 +5,18 @@
 
 ## Services
 
-* [OpenLDAP](openldap.org) - main user directory and group store.
-* [Keycloak](https://www.keycloak.org/) - authentication adapter.
-
-
-## Requirements
-
-* [Docker](https://docker.io)
+* [OpenLDAP](openldap.org)      - main user directory and group store.
+* [phpLDAPadmin](keycloak.org)  - authentication adapter.
+* [Keycloak](keycloak.org)      - authentication adapter.
 
 
 ## Installation
 
-* Clone this repository including the openLDAP submodule:
+### Prerequisites:
+
+* [Docker](https://docker.io)
+
+Clone this repository including the openLDAP submodule:
 ```bash
 git clone --recurse-submodules https://github.com/AfrikaBurn/TMI-Access-Token.git
 ```
@@ -25,38 +25,32 @@ git clone --recurse-submodules https://github.com/AfrikaBurn/TMI-Access-Token.gi
 cd TMI-Access-Token
 cp default.env .env
 ```
-* Change the make passwords in .env more secure .
 
 
-### Optional:
+## Service
 
-* Docker Volumes:
-    * ldap_config
-    * ldap_data
-
-
-## Services
-
-| Service | Protocol | Port |
-| --- | --- | --- |
-| OpenLDAP | LDAP | 389 |
-| | LDAPS | 363 |
-| Keycloak | HTTP | 11080 |
-| | HTTPS | 363 |
+| Container                     | Protocol  | External Port | Internal port | URL
+| ----------------------------- | --------- | ------------- | ------------- | ---
+| [OpenLDAP](openldap.org)      | LDAP      | 11010         | 389           | ?
+|                               | LDAPS     | 11015         | 363           | ?
+| [phpLDAPadmin](keycloak.org)  | HTTP      | 11020         | 80            | http://localhost:11020
+|                               | HTTPS     | 11025         | 443           | https://localhost:11025
+| [Keycloak](keycloak.org)      | HTTP      | 11030         | 8080          | http://localhost:11030
+|                               | HTTPS     | 11035         | 363           | https://localhost:11035
 
 
 ## Service control
 
 ```bash
-# Build services:
+# Build service:
 ./scripts/build
 
-# Build and start services:
+# Build and start service:
 ./scripts/start
 
-# Stop services
-./scripts/start
+# Stop service
+CTRL+C
 
-# SSH into either service
-./scripts ssh [ keycloak | ldap ]
+# SSH into images
+./scripts ssh [ openLDAP | phpLDAPadmin | Keycloak ]
 ```
