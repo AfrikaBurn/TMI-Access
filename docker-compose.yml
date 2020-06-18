@@ -2,46 +2,44 @@ version: '2'
 
 services:
 
-  openLDAP:
+  ldap:
     container_name: openLDAP
-    image: osixia/openldap
+    image: osixia/openldap:1.3.0
     env_file: .env
     ports:
       - '11010:389'
       - '11015:363'
     volumes:
       - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
       - ldap_backups:/var/backups
 
-  phpLDAPadmin:
+  ldap-admin:
     container_name: phpLDAPadmin
-    image: osixia/phpldapadmin
+    image: osixia/phpldapadmin:0.9.0
     env_file: .env
     ports:
       - '11020:80'
       - '11025:443'
     depends_on:
       - openLDAP
-    volumes:
-      - admin_data:/var/lib/ldap
-      - admin_config:/etc/ldap
 
-  Keycloak:
+  auth-extend:
     container_name: Keycloak
-    image: jboss/keycloak
+    image: jboss/keycloak:10.0.2
     env_file: .env
     ports:
       - '11030:8080'
       - '11035:443'
     depends_on:
-      - phpLDAPadmin
+      - openLDAP
     volumes:
       - keycloak_config:/etc/keycloak
-
 
 volumes:
 
   ldap_data:
+  ldap_config:
   ldap_backups:
 
   admin_data:
