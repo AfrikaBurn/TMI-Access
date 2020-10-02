@@ -6,9 +6,9 @@ services:
     container_name: tmi_access_token
     image: osixia/openldap:1.3.0
     environment:
-      - LDAP_ORGANISATION=AfrikaBurn
-      - LDAP_DOMAIN=afrikaburn.org
-      - LDAP_BASE_DN=dc=afrikaburn,dc=org
+      - LDAP_ORGANISATION=TMI
+      - LDAP_DOMAIN=tmi.mobi
+      - LDAP_BASE_DN=dc=tmi,dc=mobi
       - LDAP_ADMIN_PASSWORD=change_me
       - LDAP_CONFIG_PASSWORD=change_me
     ports:
