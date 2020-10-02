@@ -29,7 +29,7 @@ services:
       - '11020:80'
       - '11025:443'
     depends_on:
-      - open-ldap
+      - app
 
   facade:
     container_name: tmi_access_token_auth
