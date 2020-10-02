@@ -2,47 +2,46 @@ version: '2'
 
 services:
 
-  ldap:
-    container_name: openLDAP
+  app:
+    container_name: tmi_access_token
     image: osixia/openldap:1.3.0
-    env_file: .env
+    environment:
+      - LDAP_ORGANISATION=AfrikaBurn
+      - LDAP_DOMAIN=afrikaburn.org
+      - LDAP_BASE_DN=dc=afrikaburn,dc=org
+      - LDAP_ADMIN_PASSWORD=change_me
+      - LDAP_CONFIG_PASSWORD=change_me
     ports:
       - '11010:389'
       - '11015:363'
     volumes:
-      - ldap_data:/var/lib/ldap
-      - ldap_config:/etc/ldap/slapd.d
-      - ldap_backups:/var/backups
+      - ./local/data:/var/lib/ldap
+      - ./local/config/ldap:/etc/ldap/slapd.d
+      - ./local/backups:/var/backups
 
-  ldap-admin:
-    container_name: phpLDAPadmin
+  admin:
+    container_name: tmi_access_token_admin
     image: osixia/phpldapadmin:0.9.0
-    env_file: .env
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=app
+      - PHPLDAPADMIN_HTTPS=false
     ports:
       - '11020:80'
       - '11025:443'
     depends_on:
-      - openLDAP
+      - open-ldap
 
-  auth-extend:
-    container_name: Keycloak
+  facade:
+    container_name: tmi_access_token_auth
     image: jboss/keycloak:10.0.2
-    env_file: .env
+    environment:
+      - KEYCLOAK_USER=CIA
+      - KEYCLOAK_PASSWORD=change_me
+
     ports:
       - '11030:8080'
       - '11035:443'
     depends_on:
-      - openLDAP
+      - open-ldap
     volumes:
-      - keycloak_config:/etc/keycloak
-
-volumes:
-
-  ldap_data:
-  ldap_config:
-  ldap_backups:
-
-  admin_data:
-  admin_config:
-
-  keycloak_config:
+      - ./local/config/facade:/etc/facade
