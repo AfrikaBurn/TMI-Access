@@ -2,7 +2,7 @@ version: '2'
 
 services:
 
-  app:
+  store:
     container_name: tmi_access_token
     image: osixia/openldap:1.3.0
     environment:
@@ -23,25 +23,24 @@ services:
     container_name: tmi_access_token_admin
     image: osixia/phpldapadmin:0.9.0
     environment:
-      - PHPLDAPADMIN_LDAP_HOSTS=app
+      - PHPLDAPADMIN_LDAP_HOSTS=store
       - PHPLDAPADMIN_HTTPS=false
     ports:
       - '11020:80'
       - '11025:443'
     depends_on:
-      - app
+      - store
 
-  facade:
+  auth:
     container_name: tmi_access_token_auth
     image: jboss/keycloak:10.0.2
     environment:
       - KEYCLOAK_USER=CIA
       - KEYCLOAK_PASSWORD=change_me
-
     ports:
       - '11030:8080'
       - '11035:443'
     depends_on:
-      - open-ldap
+      - store
     volumes:
-      - ./local/config/facade:/etc/facade
+      - ./local/config/auth:/etc/auth
