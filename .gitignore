@@ -1,8 +1,0 @@
-# VSCode
-.vscode
-.env
-/local/backups
-/local/config/ldap
-/local/data
-/local/ldap
-/app/node_modules
