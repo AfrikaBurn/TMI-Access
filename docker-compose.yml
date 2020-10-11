@@ -1,6 +1,6 @@
 version: '2'
 
-# Copy default.env to .env and change passwords.
+# Copy default.env to environment.env and change passwords.
 
 services:
 
@@ -15,6 +15,8 @@ services:
       - ./local/config/auth:/etc/auth
     depends_on:
       - store
+    env_file:
+      - environment.env
 
   store:
     container_name: tmi_access_token_store
@@ -27,10 +29,8 @@ services:
       - ./local/data:/var/lib/ldap
       - ./local/config/ldap:/etc/ldap/slapd.d
       - ./local/backups:/var/backups
-    environment:
-      - LDAP_ORGANISATION=TMI
-      - LDAP_DOMAIN=tmi.mobi
-      - LDAP_BASE_DN=dc=tmi,dc=mobi
+    env_file:
+      - environment.env
 
   admin:
     container_name: tmi_access_token_admin
@@ -43,3 +43,5 @@ services:
       - store
     environment:
       - PHPLDAPADMIN_LDAP_HOSTS=store
+    env_file:
+      - environment.env
