@@ -1,1 +1,4 @@
+/local/backups
+/local/config/ldap
+/local/data
 /environment.env
