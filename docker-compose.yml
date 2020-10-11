@@ -7,6 +7,7 @@ services:
   auth:
     container_name: tmi_access_token_auth
     image: jboss/keycloak:10.0.2
+    restart: always
     ports:
       - '11000:8080'
       - '11005:443'
@@ -18,6 +19,7 @@ services:
   store:
     container_name: tmi_access_token_store
     image: osixia/openldap:1.3.0
+    restart: always
     ports:
       - '11010:389'
       - '11015:363'
@@ -33,6 +35,7 @@ services:
   admin:
     container_name: tmi_access_token_admin
     image: osixia/phpldapadmin:0.9.0
+    restart: always
     ports:
       - '11020:80'
       - '11025:443'
